@@ -38,6 +38,11 @@ Then /I should (not )?see the following movies/ do |visible, movies_table|
   end
 end
 
+# Hw3 part2c.
+Then /I should see all of the movies/ do
+  # save_and_open_page
+  page.all(:css, 'tbody#movielist tr td a').count.should == 10
+end
 
 # Make sure that one string (regexp) occurs before or after another one
 #   on the same page
