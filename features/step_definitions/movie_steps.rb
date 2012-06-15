@@ -11,6 +11,34 @@ Given /the following movies exist/ do |movies_table|
   # flunk "Unimplemented"
 end
 
+# Hw3 part2.
+When /^all ratings are checked$/ do
+  check("ratings_G")
+  check("ratings_PG")
+  check("ratings_R")
+  check("ratings_PG-13")
+  check("ratings_NC-17")
+  click_button("Refresh")
+end
+
+When /^no ratings are checked$/ do
+  uncheck("ratings_G")
+  uncheck("ratings_PG")
+  uncheck("ratings_R")
+  uncheck("ratings_PG-13")
+  uncheck("ratings_NC-17")
+  click_button("Refresh")
+end
+
+# Hw3 part2.
+Then /I should (not )?see the following movies/ do |visible, movies_table|
+  movies_table.hashes.each do |movie|
+    movie_title = movie['title']
+    step "I should " + visible.to_s + "see \"#{movie_title}\""
+  end
+end
+
+
 # Make sure that one string (regexp) occurs before or after another one
 #   on the same page
 
