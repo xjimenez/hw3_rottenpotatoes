@@ -1,5 +1,4 @@
 # Add a declarative step here for populating the DB with movies.
-
 Given /the following movies exist/ do |movies_table|
   movies_table.hashes.each do |movie|
     # each returned element will be a hash whose key is the table header.
@@ -44,13 +43,21 @@ Then /I should see all of the movies/ do
   page.all(:css, 'tbody#movielist tr td a').count.should == 10
 end
 
-# Make sure that one string (regexp) occurs before or after another one
-#   on the same page
-
+## Make sure that title e1 occurs before another title e2.
 Then /I should see "(.*)" before "(.*)"/ do |e1, e2|
-  #  ensure that that e1 occurs before e2.
-  #  page.content  is the entire content of the page as a string.
-  flunk "Unimplemented"
+  # save_and_open_page
+  # page.should have_content("Chicken Run")
+  # NO! page.should have_css('tr td:contains("Chicken Run")') checks the td not the parent tr.
+  # ALMOST! page.should have_css('tr:contains("Chicken Run")') checks the tr
+  # GOTCHA! page.should have_css('tr:contains("Chicken Run") ~ tr:contains("The Help")')
+  page.should have_css('tr:contains("' + e1 + '") ~ tr:contains("' + e2 + '")')
+
+  # pp1 = page.first(:xpath, '//tr[contains(., "Chicken Run")]/following-sibling::*[contains(., "The Help")]')
+  # pp1 = page.first(:xpath, '//tr[contains(., "Chicken Run")] ~ //tr[contains(., "The Help")]')
+  # pp2 = page.first(:xpath, '//tr[contains(., "The Help")]').value
+  # pp1 = page.find('tr[contains(\"' + e1 + '\"')
+  # pp2 = page.find("#movielist tr:contains('" + e2 + "'")
+  # page.should have_css('tbody#movielist//:contains("' + e1 + '")+tbody#movielist//:contains("' + e2 +'")')
 end
 
 # Make it easier to express checking or unchecking several boxes at once

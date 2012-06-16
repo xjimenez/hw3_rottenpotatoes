@@ -22,10 +22,12 @@ Background: movies have been added to database
   And I am on the RottenPotatoes home page
 
 Scenario: sort movies alphabetically
-  When I follow "Movie Title"
-  # your steps here
+  When all ratings are checked 
+  And I follow "Movie Title"
+  Then I should see "Chicken Run" before "The Help"
 
 Scenario: sort movies in increasing order of release date
-  When i follow "Release Date"
-  # your steps here
+  When all ratings are checked
+  And I follow "Release Date"
+  Then I should see "Chicken Run" before "The Help"
 
