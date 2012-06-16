@@ -25,9 +25,11 @@ Scenario: sort movies alphabetically
   When all ratings are checked 
   And I follow "Movie Title"
   Then I should see "Chicken Run" before "The Help"
-
+  And I should see "2001: A Space Odyssey" before "Aladdin"
+  
 Scenario: sort movies in increasing order of release date
   When all ratings are checked
   And I follow "Release Date"
   Then I should see "Chicken Run" before "The Help"
+  And I should see "Chicken Run" before "Amelie"
 
